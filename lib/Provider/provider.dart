@@ -6,12 +6,16 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 class ProviderData extends ChangeNotifier {
+  int genreid = 28;
+  bool isloading = false;
   List? resultdata = [];
   List? genresdata = [];
   List? movievideo = [];
+  List? genresmovie = [];
   Box? trandingbox;
   Box? genresbox;
   Box? movievideobox;
+  Box? genresmoviebox;
 
   Future trandingdata() async {
     trandingbox = Hive.box('trandingdata');
@@ -109,6 +113,46 @@ class ProviderData extends ChangeNotifier {
     movievideobox!.clear();
     for (var d in data) {
       movievideobox!.add(d);
+    }
+    notifyListeners();
+  }
+
+  Future getgenresmovie() async {
+    genresmoviebox = Hive.box('genresmovie');
+    String url =
+        "https://api.themoviedb.org/3/discover/movie?api_key=0b64eff7e87e6af9905013afe5607503&language=en-US&with_genres=${genreid}";
+    notifyListeners();
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      isloading = true;
+      try {
+        genresmoviebox!.clear();
+        var response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          var jsondata = jsonDecode(response.body);
+          addgenresmovie(jsondata['results']);
+          isloading = false;
+          notifyListeners();
+        }
+      } catch (e) {}
+      genresmovie = genresmoviebox!.values.toList();
+      notifyListeners();
+    } else {
+      genresmovie = genresmoviebox!.values.toList();
+      notifyListeners();
+    }
+  }
+
+  getgenreid(int _id) {
+    genreid = _id;
+    notifyListeners();
+  }
+
+  Future addgenresmovie(data) async {
+    genresmoviebox!.clear();
+    for (var d in data) {
+      genresmoviebox!.add(d);
     }
     notifyListeners();
   }

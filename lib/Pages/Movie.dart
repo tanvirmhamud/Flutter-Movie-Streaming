@@ -16,6 +16,7 @@ class MoviePage extends StatefulWidget {
 class _MoviePageState extends State<MoviePage> {
   PageController? _pageController;
   int correntpage = 0;
+  int genresnum = 0;
 
   static final cachedmanager = CacheManager(
     Config(
@@ -182,12 +183,18 @@ class _MoviePageState extends State<MoviePage> {
                   child: Container(
                     margin: EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
-                        color: Colors.deepOrange,
+                        color: genresnum == index
+                            ? Colors.deepPurple
+                            : Colors.deepOrange,
                         borderRadius: BorderRadius.circular(50)),
                     child: Material(
                       color: Colors.transparent,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            genresnum = index;
+                          });
+                        },
                         borderRadius: BorderRadius.circular(50),
                         child: Container(
                           padding: EdgeInsets.only(

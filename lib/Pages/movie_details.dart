@@ -278,8 +278,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.0),
                                       child: CachedNetworkImage(
-                                        cacheManager: trailer,
-                                        key: UniqueKey(),
+                                       
                                         imageUrl:
                                             "https://i3.ytimg.com/vi/${movievideo['key']}/hqdefault.jpg",
                                         fit: BoxFit.cover,

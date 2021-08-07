@@ -15,6 +15,8 @@ void main() async {
   await Hive.openBox('genres');
   await Hive.openBox('movievideo');
   await Hive.openBox('trailerimage');
+  await Hive.openBox('genresmovie');
+  await Hive.openBox('genremoviedetails');
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => ProviderData()),
   ], child: MyApp()));

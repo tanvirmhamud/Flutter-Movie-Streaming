@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_moviedb/Pages/Movie.dart';
 import 'package:flutter_moviedb/Pages/Mylist.dart';
 import 'package:flutter_moviedb/Pages/Series.dart';
+import 'package:flutter_moviedb/Pages/slivermovie.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _HomepageState extends State<Homepage> {
                   },
                   children: [
                     SeriesPage(),
-                    MoviePage(),
+                    SliverMoviePage(),
                     Mylist(),
                   ],
                 ),
